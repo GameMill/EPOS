@@ -1,13 +1,13 @@
 {
-  "main.css": "/EPOS/static/css/main.887a7b95.chunk.css",
-  "main.js": "/EPOS/static/js/main.f2aeee30.chunk.js",
-  "main.js.map": "/EPOS/static/js/main.f2aeee30.chunk.js.map",
-  "static/js/1.0404bcfa.chunk.js": "/EPOS/static/js/1.0404bcfa.chunk.js",
-  "static/js/1.0404bcfa.chunk.js.map": "/EPOS/static/js/1.0404bcfa.chunk.js.map",
-  "runtime~main.js": "/EPOS/static/js/runtime~main.c6e817da.js",
-  "runtime~main.js.map": "/EPOS/static/js/runtime~main.c6e817da.js.map",
-  "static/css/main.887a7b95.chunk.css.map": "/EPOS/static/css/main.887a7b95.chunk.css.map",
-  "index.html": "/EPOS/index.html",
-  "precache-manifest.8fc5172d317a0b0244a1c5f5b59abc17.js": "/EPOS/precache-manifest.8fc5172d317a0b0244a1c5f5b59abc17.js",
-  "service-worker.js": "/EPOS/service-worker.js"
+  "files": {
+    "main.css": "/EPOS/static/css/main.be9c5edb.css",
+    "main.js": "/EPOS/static/js/main.b66ed517.js",
+    "index.html": "/EPOS/index.html",
+    "main.be9c5edb.css.map": "/EPOS/static/css/main.be9c5edb.css.map",
+    "main.b66ed517.js.map": "/EPOS/static/js/main.b66ed517.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.be9c5edb.css",
+    "static/js/main.b66ed517.js"
+  ]
 }
