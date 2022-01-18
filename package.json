@@ -1,6 +1,6 @@
 {
   "name": "epos_system",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "private": true,
   "homepage": "http://gamemill.github.io/EPOS/",
   "dependencies": {
@@ -25,6 +25,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
