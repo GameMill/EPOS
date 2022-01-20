@@ -37,10 +37,13 @@ class DashboardPage extends React.Component {
 
     this.OnKeyDown = (key) => {
       var character = key.key;
-      if(character.length > 1)
+      if(character.length > 1 && !(character === "Enter" || character === "Backspace"))
+      {
         return;
+      }
       var data = this.state.input;
       var id = ""
+      console.log(key);
       if (character === "Backspace") {
         data = (data.length > 0) ? data.substring(0, data.length - 1) : "";
         this.setState({ input: data });
@@ -141,7 +144,7 @@ class DashboardPage extends React.Component {
     }
     //$(".selected").removeClass("selected")
     var Price = "£" + Data.Price;
-    items[ID] = <button id={ID} class="btn Item-Box btn-light"  onClick={() => { this.AddCartItemByID(Data.ID) }}><div style={{ "display": "flex", "justifyContent": "center" }}><img src={Data.ImageData.URL} alt='promo Item' style={{ "height": "180px", marginLeft:Data.ImageData.Dimensions.OffsetWidth,marginTop:Data.ImageData.Dimensions.OffsetHeight }} /><br /></div><span style={{ "height": "40px", "fontSize": "1.5em" }}> {Data.Name} </span><br /><span style={{ "fontWeight": "bold", "height": "40px", "fontSize": "2em" }}> {Price} </span></button>
+    items[ID] = <button id={ID} key={ID} className="btn Item-Box btn-light"  onClick={() => { this.AddCartItemByID(Data.ID) }}><div style={{ "display": "flex", "justifyContent": "center" }}><img src={Data.ImageData.URL} alt='promo Item' style={{ "height": "180px", marginLeft:Data.ImageData.Dimensions.OffsetWidth,marginTop:Data.ImageData.Dimensions.OffsetHeight }} /><br /></div><span style={{ "height": "40px", "fontSize": "1.5em" }}> {Data.Name} </span><br /><span style={{ "fontWeight": "bold", "height": "40px", "fontSize": "2em" }}> {Price} </span></button>
     this.setState({ promoItem: items });
 
     //this.currentTableRowSelected = $('#Cart_' + Data.ID)
@@ -182,13 +185,13 @@ class DashboardPage extends React.Component {
     if (this.state.cartItems !== undefined) {
       for (const [key, value] of Object.entries(this.state.cartItems)) {
         var selected = (key) === this.state.selectedID;
-        cartItems.unshift(<CartItem Selected={selected} setState={() => { this.SelectedCartItem(key) }} Delete={() => { SendToServer("RemoveItem", value.ID, (Data)=>this.RemoveItem(Data.Data)) }} Data={value} />)
+        cartItems.unshift(<CartItem key={key} Selected={selected} setState={() => { this.SelectedCartItem(key) }} Delete={() => { SendToServer("RemoveItem", value.ID, (Data)=>this.RemoveItem(Data.Data)) }} Data={value} />)
       }
     }
 
 
 
-    var InputBox = (this.state.input === "") ? "" : <tr id="Input" class="selected"><td colSpan="4" width="100%" style={{ "textAlign": "center", "fontWeight": "bold", "lineHeight": "2.5em" }}> {this.state.input} </td></tr>
+    var InputBox = (this.state.input === "") ? "" : <tr id="Input" className="selected"><td colSpan="4" width="100%" style={{ "textAlign": "center", "fontWeight": "bold", "lineHeight": "2.5em" }}> {this.state.input} </td></tr>
 
     return <div style={{ "backgroundColor": "#212529" }}>
       <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{ "height": "45px" }}>
@@ -243,7 +246,7 @@ class DashboardPage extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {InputBox}
+                  {InputBox !== "" && InputBox}
                   {cartItems}
 
                 </tbody>
@@ -429,7 +432,7 @@ function CartItem(props) {
   var Data = props.Data;
   var ID = "Cart_" + Data.ID;
   var Price = "£" + Data.Price;
-  return <tr id={ID} className={GetClassForCartItems(props.Selected)} onClick={() => { props.setState(ID); }}><td style={{ "width": "52%" }}> {Data.Name} </td><td style={{ "width": "10%" }}> {Data.Qty} </td><td style={{ "width": "20%" }}> {Price} </td><td style={{ "width": "18%" }}><button onClick={props.Delete} class="btn btn-outline-danger text-red"><i class="fas fa-trash-alt"></i></button></td></tr>;
+  return <tr id={ID} className={GetClassForCartItems(props.Selected)} onClick={() => { props.setState(ID); }}><td style={{ "width": "52%" }}> {Data.Name} </td><td style={{ "width": "10%" }}> {Data.Qty} </td><td style={{ "width": "20%" }}> {Price} </td><td style={{ "width": "18%" }}><button onClick={props.Delete} className="btn btn-outline-danger text-red"><i className="fas fa-trash-alt"></i></button></td></tr>;
 
 }
 
