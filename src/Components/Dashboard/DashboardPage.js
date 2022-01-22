@@ -6,18 +6,15 @@ import {
   useNavigate
 } from "react-router-dom";
 
-// Create our number formatter.
-
-function LinkToAdmin()
-{
+function LinkToAdmin() {
   let navigate = useNavigate();
 
-  return  <a className="btn" onClick={()=>navigate("/admin/")}>
+  return <button className="btn" onClick={() => navigate("/admin/")}>
     <span className="navbar-toggler-icon"></span>
-  </a>
+  </button>
 }
 class DashboardPage extends React.Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -37,8 +34,7 @@ class DashboardPage extends React.Component {
 
     this.OnKeyDown = (key) => {
       var character = key.key;
-      if(character.length > 1 && !(character === "Enter" || character === "Backspace"))
-      {
+      if (character.length > 1 && !(character === "Enter" || character === "Backspace")) {
         return;
       }
       var data = this.state.input;
@@ -89,11 +85,10 @@ class DashboardPage extends React.Component {
 
   RemoveCartItemByID(id) {
     SendToServer("RemoveCartItemByID", id, (Data) => {
-      if(Data.Name !== undefined)
-      {
+      if (Data.Name !== undefined) {
         this.AddItemToCartDisplay(Data);
       }
-      else{
+      else {
         this.RemoveItem(Data.Data);
       }
     });
@@ -144,7 +139,7 @@ class DashboardPage extends React.Component {
     }
     //$(".selected").removeClass("selected")
     var Price = "£" + Data.Price;
-    items[ID] = <button id={ID} key={ID} className="btn Item-Box btn-light"  onClick={() => { this.AddCartItemByID(Data.ID) }}><div style={{ "display": "flex", "justifyContent": "center" }}><img src={Data.ImageData.URL} alt='promo Item' style={{ "height": "180px", marginLeft:Data.ImageData.Dimensions.OffsetWidth,marginTop:Data.ImageData.Dimensions.OffsetHeight }} /><br /></div><span style={{ "height": "40px", "fontSize": "1.5em" }}> {Data.Name} </span><br /><span style={{ "fontWeight": "bold", "height": "40px", "fontSize": "2em" }}> {Price} </span></button>
+    items[ID] = <button id={ID} key={ID} className="btn Item-Box btn-light" onClick={() => { this.AddCartItemByID(Data.ID) }}><div style={{ "display": "flex", "justifyContent": "center" }}><img src={Data.ImageData.URL} alt='promo Item' style={{ "height": "180px", marginLeft: Data.ImageData.Dimensions.OffsetWidth, marginTop: Data.ImageData.Dimensions.OffsetHeight }} /><br /></div><span style={{ "height": "40px", "fontSize": "1.5em" }}> {Data.Name} </span><br /><span style={{ "fontWeight": "bold", "height": "40px", "fontSize": "2em" }}> {Price} </span></button>
     this.setState({ promoItem: items });
 
     //this.currentTableRowSelected = $('#Cart_' + Data.ID)
@@ -166,18 +161,16 @@ class DashboardPage extends React.Component {
     SendToServer("Signout", "");
   }
 
-  RemoveItem(id)
-  {
-     var items = this.state.cartItems;
-     delete items["Cart_" + id];
-     this.setState({ cartItems: items });
+  RemoveItem(id) {
+    var items = this.state.cartItems;
+    delete items["Cart_" + id];
+    this.setState({ cartItems: items });
   }
 
   Void() {
     SendToServer("Void", "", () => this.clearCart());
   }
-  clearCart()
-  {
+  clearCart() {
     this.setState({ selectedID: "", cartItems: {} })
   }
   render() {
@@ -185,7 +178,7 @@ class DashboardPage extends React.Component {
     if (this.state.cartItems !== undefined) {
       for (const [key, value] of Object.entries(this.state.cartItems)) {
         var selected = (key) === this.state.selectedID;
-        cartItems.unshift(<CartItem key={key} Selected={selected} setState={() => { this.SelectedCartItem(key) }} Delete={() => { SendToServer("RemoveItem", value.ID, (Data)=>this.RemoveItem(Data.Data)) }} Data={value} />)
+        cartItems.unshift(<CartItem key={key} Selected={selected} setState={() => { this.SelectedCartItem(key) }} Delete={() => { SendToServer("RemoveItem", value.ID, (Data) => this.RemoveItem(Data.Data)) }} Data={value} />)
       }
     }
 
@@ -300,7 +293,7 @@ class DashboardPage extends React.Component {
                   data-bs-target="#VoidModal">
                   Void
                 </button>
-                <button onClick={()=>SendToServer("PayBalance",null,(data)=>{this.clearCart()})} className="col btn btn-success" style={{ "height": "90px", "margin": "0px", "padding": "0px", "width": "50%" }}>
+                <button onClick={() => SendToServer("PayBalance", null, (data) => { this.clearCart() })} className="col btn btn-success" style={{ "height": "90px", "margin": "0px", "padding": "0px", "width": "50%" }}>
                   <div style={{ "fontSize": "1em" }}>
                     Pay balance
                   </div>

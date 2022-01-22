@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import {
     Routes,
     Route,
-    useNavigate
+    useNavigate,
+    useParams
 } from "react-router-dom";
+import './main.css';
 import { SendToServer, GetFormatter } from '../../Main.js'
 import { useForm } from "react-hook-form";
 
@@ -15,6 +17,8 @@ export default function Products(Props) {
 
         <Routes>
             <Route exact path="/" element={<Main />} />
+            <Route path="/newedit/:id2" element={<Edit />} />
+
             <Route path="/newedit" element={<Edit />} />
         </Routes>
     </div>
@@ -24,20 +28,40 @@ export default function Products(Props) {
 
 function Edit() {
     let navigate = useNavigate();
-
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    let { id2 } = useParams();
+    const { register, handleSubmit, reset , formState: { errors } } = useForm();
     const onSubmit = data => {
-        data.ImageData = { URL: image, Dimensions }; setDisabled(true); console.log(data); SendToServer("CreateEditProduct", data, (data) => {
+        data.ImageData = { URL: image, Dimensions:Dimensions }; setDisabled(true); console.log(data); SendToServer("CreateEditProduct", data, (data) => {
             navigate("/admin/products");
         })
     };
     console.log(errors);
 
     const [image, setImage] = useState("");
-    const [id, setID] = useState(-1);
-    const [Dimensions, setDimensions] = useState({ Height: 0, Width: 0 });
+    const [id, setID] = useState((id2 !== undefined) ? id2 : -1);
+    const [Dimensions, setDimensions] = useState({ Height: 0, Width: 0, OffsetHeight: 0, OffsetWidth: 0});
     const [disabled, setDisabled] = useState(false);
+    const [loading, setLoading] = useState(true);
 
+    // Similar to componentDidMount and componentDidUpdate:
+    useEffect(() => {
+        if(loading)
+        {
+            if(id !== -1)
+            {
+                SendToServer("GetProduct",id,(Data)=>{
+                    setID(Data.id);
+                    setImage(Data.Data.ImageData.URL);
+                    setDimensions(Data.Data.ImageData.Dimensions);
+                    reset(Data.Data);
+                    setLoading(false);
+                });
+            }
+            else{
+                setLoading(false);
+            }
+        }
+    },[loading, id, reset]);
     function resizeFile(file) {
         return new Promise((resolve) => {
             Resizer.imageFileResizer(
@@ -73,44 +97,48 @@ function Edit() {
         }
     }
     return <div>
+    { loading === true && <div>Loading</div>}
+    { loading === false && <div>
         {id !== -1 && <h3>Editing: {id}</h3>}
         {id === -1 && <h3>Creating</h3>}
 
-        <div class="row" style={{ margin: "0px 0px", padding: "0px 0px" }}>
+        <div className="row" style={{ margin: "0px 0px", padding: "0px 0px" }}>
 
-            <div style={{ "width": "150px", height: "150px", backgroundColor: "lightgray", margin: "0px 0px", padding: "0px 0px" }} >
-                <img src={image} alt='' style={{ marginLeft: Dimensions.OffsetWidth, marginTop: Dimensions.OffsetHeight }} />
-            </div>
+            
             <div className='col' >
-                <div class="form-group" >
+                <div className="form-group" >
                     <label>Product Image: </label>
                     <input onChange={UpdateImage} type="file" />
                 </div>
             </div>
+            <div style={{ "width": "150px", height: "150px", backgroundColor: "lightgray", margin: "0px 0px", padding: "0px 0px" }} >
+                {!image &&<img className='NoImage' style={{width: "150px", height: "150px"}} />}
+                {image && <img src={image} alt='' style={{ marginLeft: Dimensions.OffsetWidth,marginRight: Dimensions.OffsetWidth, marginTop: Dimensions.OffsetHeight,marginBottom: Dimensions.OffsetHeight }} /> }
+            </div>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
 
-            <div class="form-group">
+            <div className="form-group">
                 <label>Product Name: </label>
-                <input type="text" class="form-control" placeholder="Product Name" {...register("Name", { required: true, min: 3, maxLength: 72 })} />
+                <input type="text" className="form-control" placeholder="Product Name" {...register("Name", { required: true, min: 3, maxLength: 72 })} />
             </div>
-            <div class="form-group">
+            <div className="form-group">
                 <label>Price: </label>
-                <input type="number" class="form-control" placeholder="Price" {...register("Price", { required: true, max: 100000.00, min: 0 })} />
+                <input type="number" className="form-control" placeholder="Price" {...register("Price", { required: true, max: 100000.00, min: 0 })} />
             </div>
-            <div class="form-group">
+            <div className="form-group">
                 <label>Qty Remaning: </label>
-                <input type="number" class="form-control" placeholder="QTY Remaning" {...register("QTY_Remaning", { required: true, })} />
+                <input type="number" className="form-control" placeholder="QTY Remaning" {...register("QTY_Remaning", { required: true, })} />
             </div>
-            <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" placeholder="Promo" {...register("Promo", {})} />
-                <label class="form-check-label"> Is Featured ?</label>
+            <div className="form-group form-check">
+                <input type="checkbox" className="form-check-input" placeholder="Promo" {...register("Promo", {})} />
+                <label className="form-check-label"> Is Featured ?</label>
             </div>
 
 
             <input type="submit" disabled={disabled} />
         </form>
-    </div>
+    </div>}</div>
 }
 
 class Main extends React.Component {
@@ -137,18 +165,21 @@ class Main extends React.Component {
     search(value) {
         if (value !== "") {
             const filtered = this.state.Aproducts.filter(
-                p => (p.Name.toLowerCase().indexOf(value.toLowerCase()) > -1) || this.check(p.SKUs,value) || p.ID.toString().includes(value),
+                p => (p.Name.toLowerCase().indexOf(value.toLowerCase()) > -1) || this.check(p.SKUs, value) || p.ID.toString().includes(value),
             );
-            this.setState({ products: filtered,searchTerm:value });
+            this.setState({ products: filtered, searchTerm: value });
         }
         else {
             console.log(this.state.Aproducts);
 
-            this.setState({ products: this.state.Aproducts,searchTerm:"" });
+            this.setState({ products: this.state.Aproducts, searchTerm: "" });
         }
     }
+    Edit(id) {
 
-    check(SKUs,value) {
+    }
+
+    check(SKUs, value) {
         SKUs.forEach(element => {
             if (element.contains.includes(value))
                 return true;
@@ -163,9 +194,9 @@ class Main extends React.Component {
                 <div>
                     <div className='row'>
                         <div className='col'>
-                            <input onChange={(e)=>{ this.search(e.target.value)}} />
+                            <input onChange={(e) => { this.search(e.target.value) }} />
                         </div>
-                        <div style={{width:"150px"}}>
+                        <div style={{ width: "150px" }}>
                             <button>Low Stock N/A</button>
                         </div>
                     </div>
@@ -190,22 +221,30 @@ class Main extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.products.map((product) =>
+                            {this.state.products.map((product) => 
                                 <tr key={product.ID}>
-                                    <td style={{ width: "75px", height: "75px" }}><img src={product.ImageData.URL} alt='' style={{ marginTop: (product.ImageData.Dimensions.OffsetHeight / 2), marginLeft: (product.ImageData.Dimensions.OffsetWidth / 2), maxWidth: "75px", maxHeight: "75px" }} /></td>
+                                    {console.log(product)}
+                                    <td style={{ width: "75px" }}>
+                                        <div style={{ width: "75px", height:"75px", display:"inline-block" }}>
+                                            <img src={product.ImageData.URL} alt='' style={{ marginTop: (product.ImageData.Dimensions.OffsetHeight / 2), marginLeft: (product.ImageData.Dimensions.OffsetWidth / 2), maxWidth: "75px", maxHeight: "75px" }} />
+                                        </div>
+                                    </td>
                                     <td>{product.ID}</td>
                                     <td>{product.Name}</td>
-                                    <td>{product.Qty}</td>
+                                    <td>{product.QTY_Remaning}</td>
                                     <td>{GetFormatter().format(product.Price)}</td>
                                     <td>{product.SKUs.join(' | ')}</td>
-                                    <td style={{ width: "60px", margin: "0px", padding: "10px 0px 0px 0px" }}><button onClick={() => Edit(product.ID)} className='btn mx-auto fs-4' style={{ width: "60px" }} ><i class="fas fa-edit"></i></button></td>
-                                    <td style={{ width: "60px", margin: "0px", padding: "10px 0px 0px 0px" }}><button className='btn mx-auto fs-4' style={{ width: "60px" }} ><i class="fas fa-trash-alt"></i></button></td>
+                                    <td style={{ width: "60px", margin: "0px", padding: "10px 0px 0px 0px" }}> <Nbutton className='btn mx-auto fs-4' text={<i className="fas fa-edit"></i>} url={this.GetURL(product.ID)} /></td>
+                                    <td style={{ width: "60px", margin: "0px", padding: "10px 0px 0px 0px" }}><button className='btn mx-auto fs-4' style={{ width: "60px" }} ><i className="fas fa-trash-alt"></i></button></td>
                                 </tr>
                             )}
                         </tbody>
                     </table>
                 </div>
             } <Nbutton className='btn btn-primary' text="Add Product" url="/admin/products/newedit" /></div>
+    }
+    GetURL(id) {
+        return "/admin/products/newedit/" + id
     }
 }
 

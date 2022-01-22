@@ -22,64 +22,64 @@ class AdminPage extends React.Component {
   }
 
   render() {
-    return <div class="container-fluid">
-      <div class="row flex-nowrap">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark" style={{ "maxWidth": "159px" }}>
-          <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100" >
-            <a class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-              <span class="fs-5 d-none d-sm-inline">Menu</span>
+    return <div className="container-fluid">
+      <div className="row flex-nowrap">
+        <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark" style={{ "maxWidth": "159px" }}>
+          <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100" >
+            <a className="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+              <span className="fs-5 d-none d-sm-inline">Menu</span>
             </a>
-            <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start " id="menu">
-              <li class="nav-item ">
+            <ul className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start " id="menu">
+              <li className="nav-item ">
                 <NavLink className="nav-link align-middle px-0 text-white" to="/Dashboard" >
-                  <i class="bi-house" style={{ "fontSize": "25px", "width": "100%" }}></i> <span class="ms-1 d-none d-sm-inline">To Cart</span>
+                  <i className="bi-house" style={{ "fontSize": "25px", "width": "100%" }}></i> <span className="ms-1 d-none d-sm-inline">To Cart</span>
                 </NavLink>
               </li>
               <li>
                 <NavLink className="nav-link align-middle px-0" to="/admin/" >
-                  <i class="bi-speedometer2" style={{ "fontSize": "25px" }}></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+                  <i className="bi-speedometer2" style={{ "fontSize": "25px" }}></i> <span className="ms-1 d-none d-sm-inline">Dashboard</span>
                 </NavLink>
               </li>
               <li>
-                <a class="nav-link px-0 align-middle ">
-                  <i class="bi-table" style={{ "fontSize": "25px" }}></i> <span class="ms-1 d-none d-sm-inline">Orders</span></a>
+                <a className="nav-link px-0 align-middle ">
+                  <i className="bi-table" style={{ "fontSize": "25px" }}></i> <span className="ms-1 d-none d-sm-inline">Orders</span></a>
               </li>
               <li>
-                <a data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                  <i class="bi-bootstrap" style={{ "fontSize": "25px" }}></i> <span class="ms-1 d-none d-sm-inline">Bootstrap</span></a>
+                <a data-bs-toggle="collapse" className="nav-link px-0 align-middle ">
+                  <i className="bi-bootstrap" style={{ "fontSize": "25px" }}></i> <span className="ms-1 d-none d-sm-inline">Bootstrap</span></a>
               </li>
               <li>
-                <NavLink className="nav-link align-middle px-0" to="/admin/products/" isActive={(match, location) => { console.log(match, location); return match; }} >
-                  <i class="bi-grid" style={{ "fontSize": "25px" }}></i> <span class="ms-1 d-none d-sm-inline">Products</span>
+                <NavLink className="nav-link align-middle px-0" to="/admin/products/">
+                  <i className="bi-grid" style={{ "fontSize": "25px" }}></i> <span className="ms-1 d-none d-sm-inline">Products</span>
                 </NavLink>
 
 
               </li>
               <li>
-                <a class="nav-link px-0 align-middle">
-                  <i class="bi-people" style={{ "fontSize": "25px" }}></i> <span class="ms-1 d-none d-sm-inline">Customers</span> </a>
+                <a className="nav-link px-0 align-middle">
+                  <i className="bi-people" style={{ "fontSize": "25px" }}></i> <span className="ms-1 d-none d-sm-inline">Customers</span> </a>
               </li>
             </ul>
 
             <hr />
-            {/*<div class="dropdown pb-4">
-              <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle" />
-                <span class="d-none d-sm-inline mx-1">loser</span>
+            {/*<div className="dropdown pb-4">
+              <a className="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" className="rounded-circle" />
+                <span className="d-none d-sm-inline mx-1">loser</span>
               </a>
-              <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                <li><a class="dropdown-item">New project...</a></li>
-                <li><a class="dropdown-item">Settings</a></li>
-                <li><a class="dropdown-item">Profile</a></li>
+              <ul className="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                <li><a className="dropdown-item">New project...</a></li>
+                <li><a className="dropdown-item">Settings</a></li>
+                <li><a className="dropdown-item">Profile</a></li>
                 <li>
-                  <hr class="dropdown-divider" />
+                  <hr className="dropdown-divider" />
                 </li>
-                <li><a class="dropdown-item">Sign out</a></li>
+                <li><a className="dropdown-item">Sign out</a></li>
               </ul>
             </div>*/}
           </div>
         </div>
-        <div class="col py-3">
+        <div className="col py-3">
           {/* A <Switch> looks through its children <Route>s and
           renders the first one that matches the current URL. */}
           <Routes>
