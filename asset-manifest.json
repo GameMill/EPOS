@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/EPOS/static/css/main.befb4270.css",
-    "main.js": "/EPOS/static/js/main.ce6d17cb.js",
+    "main.js": "/EPOS/static/js/main.f8a3e5b9.js",
     "index.html": "/EPOS/index.html",
     "main.befb4270.css.map": "/EPOS/static/css/main.befb4270.css.map",
-    "main.ce6d17cb.js.map": "/EPOS/static/js/main.ce6d17cb.js.map"
+    "main.f8a3e5b9.js.map": "/EPOS/static/js/main.f8a3e5b9.js.map"
   },
   "entrypoints": [
     "static/css/main.befb4270.css",
-    "static/js/main.ce6d17cb.js"
+    "static/js/main.f8a3e5b9.js"
   ]
 }
