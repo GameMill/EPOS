@@ -6,7 +6,7 @@ import {
   Route,
   NavLink
 } from "react-router-dom";
-import { LoadController } from '../Main.js'
+import { LoadController, SendToServer } from '../Main.js'
 
 import ProductsPage from './Pages/ProductsPage.js'
 import DashboardPage from './Pages/DashboardPage.js'
@@ -59,9 +59,19 @@ class AdminPage extends React.Component {
                 <a className="nav-link px-0 align-middle">
                   <i className="bi-people" style={{ "fontSize": "25px" }}></i> <span className="ms-1 d-none d-sm-inline">Customers</span> </a>
               </li>
+
+              <li>
+                <button className="nav-link px-0 align-middle" onClick={()=>SendToServer("ResetPage",null)}>
+                  <i className="fas fa-sync" style={{ "fontSize": "25px" }}></i> <span className="ms-1 d-none d-sm-inline">Reset</span> 
+                </button>
+              </li>
+              <li>
+                <button className="nav-link px-0 align-middle" onClick={()=>SendToServer("exit",null)}>
+                  <i className="fas fa-door-open" style={{ "fontSize": "25px" }}></i> <span className="ms-1 d-none d-sm-inline">Exit</span> 
+                </button>
+              </li>
             </ul>
 
-            <hr />
             {/*<div className="dropdown pb-4">
               <a className="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" className="rounded-circle" />
