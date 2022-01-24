@@ -29,8 +29,8 @@ export default class Dashboard extends React.Component {
 
                             <div className="card-body ">
                                 <h5 className="card-title fs-2">{GetFormatter().format(this.state.Data.TodayProfit)}</h5>
-                                {this.state.Data.ProfitDiff > 0 && <small className="text-muted"> <span style={{ "color": "#2fd04a" }}>{this.state.Data.ProfitDiff}%</span><span>More profit then usual</span></small> }
-                                {this.state.Data.ProfitDiff < 0 && <small className="text-muted"> <span style={{ "color": "red" }}>{this.state.Data.ProfitDiff}%</span><span>Less profit then usual</span></small> }
+                                {this.state.Data.ProfitDiff > 0 && <small className="text-muted"> <span style={{ "color": "#2fd04a" }}>{this.state.Data.ProfitDiff}%</span> <span>More profit then usual</span></small> }
+                                {this.state.Data.ProfitDiff < 0 && <small className="text-muted"> <span style={{ "color": "red" }}>{this.state.Data.ProfitDiff}%</span> <span>Less profit then usual</span></small> }
                                 {this.state.Data.ProfitDiff === 0 && <small className="text-muted">Profit is the same as usual</small> }
                             </div>
                         </div>
@@ -41,8 +41,8 @@ export default class Dashboard extends React.Component {
 
                             <div className="card-body ">
                                 <h5 className="card-title fs-2">{GetFormatter().format(this.state.Data.TotalSales)}</h5>
-                                {this.state.Data.TotalSalesDiff > 0 && <small className="text-muted"> <span style={{ "color": "#2fd04a" }}>{this.state.Data.ItemsSoldDiff}%</span><span>More Sales then usual</span></small> }
-                                {this.state.Data.TotalSalesDiff < 0 && <small className="text-muted"> <span style={{ "color": "red" }}>{this.state.Data.ItemsSoldDiff}%</span><span>Less Sales then usual</span></small> }
+                                {this.state.Data.TotalSalesDiff > 0 && <small className="text-muted"> <span style={{ "color": "#2fd04a" }}>{this.state.Data.ItemsSoldDiff}%</span> <span>More Sales then usual</span></small> }
+                                {this.state.Data.TotalSalesDiff < 0 && <small className="text-muted"> <span style={{ "color": "red" }}>{this.state.Data.ItemsSoldDiff}%</span> <span>Less Sales then usual</span></small> }
                                 {this.state.Data.TotalSalesDiff === 0 && <small className="text-muted">Sales is the same as usual</small> }
                             </div>
                         </div>
@@ -50,11 +50,11 @@ export default class Dashboard extends React.Component {
 
                     <div className="col">
                         <div className="card text-dark bg-light mb-3 mx-auto" style={{ "maxWidth": "18rem" }}>
-                            <h5 className="card-header">Pending Orders N/A<span className="float-end fs-"><i className="fas fa-truck-loading text-white" style={{ padding: "5px", backgroundColor: "#8EB0C0", borderRadius: "5px" }}></i></span></h5>
+                            <h5 className="card-header">Pending Orders<span className="float-end fs-"><i className="fas fa-truck-loading text-white" style={{ padding: "5px", backgroundColor: "#8EB0C0", borderRadius: "5px" }}></i></span></h5>
 
                             <div className="card-body ">
-                                <h5 className="card-title fs-2">-1</h5>
-                                <small className="text-muted"><span style={{ "color": "#dc2325" }}>-5.50%</span> Less sales then usual</small>
+                                <h5 className="card-title fs-2">{this.state.Data.Pending}</h5>
+                                <small className="text-muted">Orders with status Active</small>
                             </div>
                         </div>
                     </div>
@@ -66,8 +66,8 @@ export default class Dashboard extends React.Component {
                             <div className="card-body ">
                                 <h5 className="card-title fs-2">{GetFormatter().format(this.state.Data.ItemsSoldToday)}</h5>
                                 
-                                {this.state.Data.ItemsSoldDiff > 0 && <small className="text-muted"> <span style={{ "color": "#2fd04a" }}>{this.state.Data.ItemsSoldDiff}%</span><span>More profit then usual</span></small> }
-                                {this.state.Data.ItemsSoldDiff < 0 && <small className="text-muted"> <span style={{ "color": "red" }}>{this.state.Data.ItemsSoldDiff}%</span><span>Less profit then usual</span></small> }
+                                {this.state.Data.ItemsSoldDiff > 0 && <small className="text-muted"> <span style={{ "color": "#2fd04a" }}>{this.state.Data.ItemsSoldDiff}%</span> <span>More profit then usual</span></small> }
+                                {this.state.Data.ItemsSoldDiff < 0 && <small className="text-muted"> <span style={{ "color": "red" }}>{this.state.Data.ItemsSoldDiff}%</span> <span>Less profit then usual</span></small> }
                                 {this.state.Data.ItemsSoldDiff === 0 && <small className="text-muted">Profit is the same as usual</small> }
                             </div>
                         </div>

@@ -12,6 +12,7 @@ import LoginPage from "./Components/Login/LoginPage.js"
 import DashboardPage from "./Components/Dashboard/DashboardPage.js"
 import AdminPage from "./Components/Admin/AdminPage.js"
 
+import PDF from './Components/PDF_Test.js'
 
 
 class App extends React.Component 
@@ -28,6 +29,7 @@ class App extends React.Component
       <Routes>
         <Route path="/admin/*" element={<AdminPage />} />
         <Route path="/dashboard/*" element={<DashboardPage />} />
+        <Route path='/pdf' element={<PDF />} />
         <Route path='/*' element={<LoginPage />} />
       </Routes>
     </Router>

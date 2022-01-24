@@ -292,8 +292,10 @@ class Main extends React.Component {
                             )}
                         </tbody>
                     </table>
+                    <Nbutton className='btn btn-primary' text="Add Product" url="/admin/products/newedit" />
                 </div>
-            } <Nbutton className='btn btn-primary' text="Add Product" url="/admin/products/newedit" /></div>
+                
+            } </div>
     }
     GetURL(id) {
         return "/admin/products/newedit/" + id

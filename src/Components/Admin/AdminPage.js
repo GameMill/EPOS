@@ -10,6 +10,7 @@ import { LoadController, SendToServer } from '../Main.js'
 
 import ProductsPage from './Pages/ProductsPage.js'
 import DashboardPage from './Pages/DashboardPage.js'
+import OrdersPage from './Pages/OrdersPage.js'
 
 
 class AdminPage extends React.Component {
@@ -41,8 +42,9 @@ class AdminPage extends React.Component {
                 </NavLink>
               </li>
               <li>
-                <a className="nav-link px-0 align-middle ">
-                  <i className="bi-table" style={{ "fontSize": "25px" }}></i> <span className="ms-1 d-none d-sm-inline">Orders</span></a>
+                <NavLink className="nav-link align-middle px-0" to="/admin/orders/">
+                  <i className="bi-table" style={{ "fontSize": "25px" }}></i> <span className="ms-1 d-none d-sm-inline">Orders</span>
+                </NavLink>
               </li>
               <li>
                 <a data-bs-toggle="collapse" className="nav-link px-0 align-middle ">
@@ -95,6 +97,7 @@ class AdminPage extends React.Component {
           <Routes>
             <Route exact path="/" element={<DashboardPage />} />
             <Route path="/products/*" element={<ProductsPage />} />
+            <Route path="/orders/*" element={<OrdersPage />} />
             <Route path="*" element={<A404 />} />
           </Routes>
         </div>
