@@ -1,6 +1,6 @@
 {
   "name": "epos_system",
-  "version": "0.1.46",
+  "version": "0.1.47",
   "private": true,
   "homepage": "http://gamemill.github.io/EPOS/",
   "dependencies": {
