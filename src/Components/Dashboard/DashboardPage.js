@@ -139,7 +139,7 @@ class DashboardPage extends React.Component {
     }
     //$(".selected").removeClass("selected")
     var Price = "£" + Data.Price;
-    items[ID] = <button id={ID} key={ID} className="btn Item-Box btn-light" onClick={() => { this.AddCartItemByID(Data.ID) }}><div style={{ "display": "flex", "justifyContent": "center" }}><img src={Data.ImageData.URL} alt='promo Item' style={{ "height": "180px", marginLeft: Data.ImageData.Dimensions.OffsetWidth, marginTop: Data.ImageData.Dimensions.OffsetHeight }} /><br /></div><span style={{ "height": "40px", "fontSize": "1.5em" }}> {Data.Name} </span><br /><span style={{ "fontWeight": "bold", "height": "40px", "fontSize": "2em" }}> {Price} </span></button>
+    items[ID] = <button id={ID} key={ID} className="btn Item-Box btn-light" onClick={() => { this.AddCartItemByID(Data.ID) }}><div style={{ "display": "flex", "justifyContent": "center" }}><img src={Data.ImageData.URL} alt='promo Item' style={{ "height": Data.ImageData.Dimensions.Height, "width": Data.ImageData.Dimensions.Width, marginLeft: Data.ImageData.Dimensions.OffsetWidth, marginTop: Data.ImageData.Dimensions.OffsetHeight }} /><br /></div><span style={{ "height": "40px", "fontSize": "1.5em" }}> {Data.Name} </span><br /><span style={{ "fontWeight": "bold", "height": "40px", "fontSize": "2em" }}> {Price} </span></button>
     this.setState({ promoItem: items });
 
     //this.currentTableRowSelected = $('#Cart_' + Data.ID)

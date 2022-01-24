@@ -81,7 +81,7 @@ function Edit(props) {
                 file,
                 150,
                 150,
-                "JPEG",
+                "PNG",
                 90,
                 0,
                 (uri) => {
