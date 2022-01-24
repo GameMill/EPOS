@@ -1,6 +1,6 @@
 {
   "name": "epos_system",
-  "version": "0.1.25",
+  "version": "0.1.26",
   "private": true,
   "homepage": "http://gamemill.github.io/EPOS/",
   "dependencies": {
@@ -24,7 +24,8 @@
     "react-simple-keyboard": "^3.4.37",
     "stream-browserify": "^3.0.0",
     "util": "^0.12.4",
-    "web-vitals": "^2.1.2"
+    "web-vitals": "^2.1.2",
+    "webpack": "^5.67.0"
   },
   "scripts": {
     "start": "react-scripts start",
