@@ -1,6 +1,5 @@
 export function SendToServer(action, data,Callback=undefined) {
     var msgObject = {
-        Action: action,
         Data: data
     };
     if(Callback !== undefined)
@@ -11,7 +10,7 @@ export function SendToServer(action, data,Callback=undefined) {
         OneUseHooks[CallbackName] = true;
     }
     try {
-        window.chrome.webview.postMessage(JSON.stringify(msgObject));
+        window.chrome.webview.postMessage(action+"|#@#|"+JSON.stringify(msgObject));
     } catch (error) {
         console.error(action,error);
     }
@@ -30,15 +29,15 @@ try {
 
     window.chrome.webview.addEventListener('message', event => {
         const obj = JSON.parse(event.data);
-        if (obj.Action in Hooks) {
+        if (obj.Callback in Hooks) {
             //console.log("Callback: ",obj)
 
-            Hooks[obj.Action](obj);
-            if(obj.Action in OneUseHooks)
-                RemoveCallback(obj.Action);
+            Hooks[obj.Callback](obj);
+            if(obj.Callback in OneUseHooks)
+                RemoveCallback(obj.Callback);
         }
         else{
-            console.log("Missing Callback: ",obj.Action,obj)
+            console.log("Missing Callback: ",obj.Callback,obj)
         }
     });
 
