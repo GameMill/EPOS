@@ -283,7 +283,7 @@ class Main extends React.Component {
                                     </td>
                                     <td>{product.ID}</td>
                                     <td>{product.Name}</td>
-                                    <td>{product.QTY_Remaning}</td>
+                                    <td>{(product.QTY_Remaning == -1 )?<i class="fas fa-infinity"></i>:product.QTY_Remaning }</td>
                                     <td>{GetFormatter().format(product.Price)}</td>
                                     <td>{product.SKUs.join(' | ')}</td>
                                     <td style={{ width: "60px", margin: "0px", padding: "10px 0px 0px 0px" }}> <Nbutton className='btn mx-auto fs-4' text={<i className="fas fa-edit"></i>} url={this.GetURL(product.ID)} /></td>

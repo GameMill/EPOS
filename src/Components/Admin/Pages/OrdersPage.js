@@ -182,7 +182,7 @@ class Main extends React.Component {
             } </div>
     }
     GetURL(id,path) {
-        return "/admin/products/"+path+"/" + id
+        return "/admin/orders/"+path+"/" + id
     }
 }
 

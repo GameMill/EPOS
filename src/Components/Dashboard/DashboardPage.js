@@ -6,6 +6,8 @@ import {
   useNavigate
 } from "react-router-dom";
 
+import MiniShippingCart,{ CartItem } from "../Components/Cart.js";
+
 function LinkToAdmin() {
   let navigate = useNavigate();
 
@@ -229,22 +231,8 @@ class DashboardPage extends React.Component {
           </div>
           <div className="col-12 col-xxl-4 col-xl-5 ">
             <div style={{ "height": "calc(100vh - 250px)", "backgroundColor": "white", "marginRight": "155px", "marginTop": "6px" }}>
-              <table id="Cart" className="table table-striped header-fixed" style={{ "backgroundColor": "white" }}>
-                <thead>
-                  <tr>
-                    <th scope="col" style={{ "width": "50%" }}>Name</th>
-                    <th scope="col" style={{ "width": "10%" }}>QTY</th>
-                    <th scope="col" style={{ "width": "20%" }}>Price</th>
-                    <th scope="col" style={{ "width": "20%" }}></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {InputBox !== "" && InputBox}
-                  {cartItems}
 
-                </tbody>
-              </table>
-
+              <MiniShippingCart InputBox={InputBox} Items={cartItems} Admin />
             </div>
             <div style={{ "height": "195px", "marginRight": "155px" }}>
               <div className="row">
@@ -418,15 +406,6 @@ class DashboardPage extends React.Component {
   }
 }
 
-function CartItem(props) {
-  function GetClassForCartItems(selected) {
-    return "clickable-row" + ((selected) ? " selected" : "");
-  }
-  var Data = props.Data;
-  var ID = "Cart_" + Data.ID;
-  var Price = "£" + Data.Price;
-  return <tr id={ID} className={GetClassForCartItems(props.Selected)} onClick={() => { props.setState(ID); }}><td style={{ "width": "52%" }}> {Data.Name} </td><td style={{ "width": "10%" }}> {Data.Qty} </td><td style={{ "width": "20%" }}> {Price} </td><td style={{ "width": "18%" }}><button onClick={props.Delete} className="btn btn-outline-danger text-red"><i className="fas fa-trash-alt"></i></button></td></tr>;
 
-}
 
 export default DashboardPage;
