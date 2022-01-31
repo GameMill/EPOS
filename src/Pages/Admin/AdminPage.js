@@ -6,7 +6,7 @@ import {
   Route,
   NavLink
 } from "react-router-dom";
-import { LoadController, SendToServer } from '../Main.js'
+import { LoadController, SendToServer } from '../../GlobalFunctions.js'
 
 import ProductsPage from './Pages/ProductsPage.js'
 import DashboardPage from './Pages/DashboardPage.js'
@@ -69,6 +69,11 @@ class AdminPage extends React.Component {
               </li>
               <li>
                 <button className="nav-link px-0 align-middle" onClick={()=>SendToServer("exit",null)}>
+                  <i className="fas fa-door-open" style={{ "fontSize": "25px" }}></i> <span className="ms-1 d-none d-sm-inline">Exit</span> 
+                </button>
+              </li>
+              <li>
+                <button className="nav-link px-0 align-middle" onClick={()=>SendToServer("test",null)}>
                   <i className="fas fa-door-open" style={{ "fontSize": "25px" }}></i> <span className="ms-1 d-none d-sm-inline">Exit</span> 
                 </button>
               </li>

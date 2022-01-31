@@ -5,11 +5,11 @@ import {
     useNavigate,
     useParams
 } from "react-router-dom";
-import './main.css';
-import { SendToServer, GetFormatter } from '../../Main.js'
+import '../../../Style/Admin/main.css';
+import { SendToServer, GetFormatter } from '../../../GlobalFunctions.js'
 import { useForm } from "react-hook-form";
 
-import Keyboard from '../../Keyboard.js'
+import Keyboard from '../../../Components/Keyboard.js'
 
 export default function Orders(Props) {
     const [title, setTitle] = useState("");
@@ -49,7 +49,7 @@ function Edit(props) {
         if (loading) {
             if (id !== -1) {
                 SendToServer("GetOrders", id, (Data) => {
-                    if (Data.Data != null) {
+                    if (Data.Data !== null) {
                         setID(Data.Data.id);
                         reset(Data.Data);
                         setLoading(false);
@@ -90,7 +90,7 @@ class Main extends React.Component {
         this.props.setTitle("List");
         SendToServer("GetOrders",  "", (Data) => {
             console.log(Data);
-            this.setState({ Aorders: Data.Orders })
+            this.setState({ Aorders: Data.Data })
             this.search("");
             this.setState({ loading: false })
         })
@@ -164,12 +164,12 @@ class Main extends React.Component {
                                     <td>{GetFormatter().format(order.Price.Remaning)}</td>
                                     <td>{GetFormatter().format(order.Price.Refunded)}</td>
                                     <td>
-                                    {order.Status == -1 && <span>Void</span>}
-                                    {order.Status == 0 && <span>Active</span>}
-                                    {order.Status == 1 && <span>Shipping</span>}
-                                    {order.Status == 2 && <span>Complate</span>}
-                                    {order.Status == 3 && <span>Return</span>}
-                                    {order.Status == 4 && <span>PartiallyRefunded</span>}
+                                    {order.Status === -1 && <span>Void</span>}
+                                    {order.Status === 0 && <span>Active</span>}
+                                    {order.Status === 1 && <span>Shipping</span>}
+                                    {order.Status === 2 && <span>Complate</span>}
+                                    {order.Status === 3 && <span>Return</span>}
+                                    {order.Status === 4 && <span>PartiallyRefunded</span>}
                                         
                                     </td>
                                     <td style={{ width: "60px", margin: "0px", padding: "10px 0px 0px 0px" }}> <Nbutton className='btn mx-auto fs-4' text={<i className="fas fa-edit"></i>} url={this.GetURL(order.ID,"newedit")} /></td>

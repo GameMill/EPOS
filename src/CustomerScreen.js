@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react'
-import { SendToServer, LoadController, AddCallback, RemoveCallback, GetFormatter } from './Components/Main.js'
-import MiniShippingCart, { CartItem } from "./Components/Components/Cart.js";
+import { SendToServer, LoadController, AddCallback, RemoveCallback, GetFormatter } from './GlobalFunctions.js'
+import MiniShippingCart, { CartItem } from './Components/Cart.js';
 
 export default class Main extends React.Component {
   constructor(props) {

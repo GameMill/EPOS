@@ -5,13 +5,14 @@ import {
     useNavigate,
     useParams
 } from "react-router-dom";
-import './main.css';
-import { SendToServer, GetFormatter } from '../../Main.js'
+import '../../../GlobalFunctions.js'
+
+import { SendToServer, GetFormatter } from '../../../GlobalFunctions.js'
 import { useForm } from "react-hook-form";
 
 import Resizer from "react-image-file-resizer";
 
-import Keyboard from '../../Keyboard.js'
+import Keyboard from '../../../Components/Keyboard.js'
 
 export default function Products(Props) {
     const [title, setTitle] = useState("");
@@ -207,7 +208,7 @@ class Main extends React.Component {
         this.props.setTitle("List");
         SendToServer("GetProducts", "", (Data) => {
             console.log(Data);
-            this.setState({ Aproducts: Data.Products })
+            this.setState({ Aproducts: Data.Data })
             this.search("");
             this.setState({ loading: false })
         })
@@ -283,7 +284,7 @@ class Main extends React.Component {
                                     </td>
                                     <td>{product.ID}</td>
                                     <td>{product.Name}</td>
-                                    <td>{(product.QTY_Remaning == -1 )?<i class="fas fa-infinity"></i>:product.QTY_Remaning }</td>
+                                    <td>{(product.QTY_Remaning === -1 )?<i class="fas fa-infinity"></i>:product.QTY_Remaning }</td>
                                     <td>{GetFormatter().format(product.Price)}</td>
                                     <td>{product.SKUs.join(' | ')}</td>
                                     <td style={{ width: "60px", margin: "0px", padding: "10px 0px 0px 0px" }}> <Nbutton className='btn mx-auto fs-4' text={<i className="fas fa-edit"></i>} url={this.GetURL(product.ID)} /></td>

@@ -1,5 +1,5 @@
 import React from "react"
-import { SendToServer, GetFormatter } from '../../Main.js'
+import { SendToServer, GetFormatter } from '../../../GlobalFunctions.js'
 
 
 export default class Dashboard extends React.Component {
@@ -13,7 +13,7 @@ export default class Dashboard extends React.Component {
     }
     componentDidMount() {
         SendToServer("GetDashboardStats", "", (Data) => {
-            this.setState({ loading: false, Data: Data })
+            this.setState({ loading: false, Data: Data.Data })
         })
     }
 
@@ -22,7 +22,7 @@ export default class Dashboard extends React.Component {
             <h2>Dashboard</h2> <hr />
             {this.state.loading === true && <h2 className="mx-auto">Loading</h2> }
             {this.state.loading === false &&
-                <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-4 g-4" sty>
+                <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-4 g-4">
                     <div className="col">
                         <div className="card text-dark bg-light mb-3 mx-auto" style={{ "maxWidth": "18rem" }}>
                             <h5 className="card-header">Profit Today <span className="float-end fs-"><i className="fas fa-truck text-white" style={{ padding: "5px", backgroundColor: "#8EB0C0", borderRadius: "10px" }}></i></span></h5>

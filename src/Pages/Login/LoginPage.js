@@ -1,12 +1,12 @@
 import React, { useRef, useState } from 'react'
-import './style.css'
+import '../../Style/Login/style.css'
 import {
     Routes,
     Route,
     NavLink,
     useNavigate
 } from "react-router-dom";
-import { SendToServer, LoadController } from '../Main.js'
+import { SendToServer, LoadController } from '../../GlobalFunctions.js'
 import Keyboard from 'react-simple-keyboard';
 
 import '../../../node_modules/react-simple-keyboard/build/css/index.css';

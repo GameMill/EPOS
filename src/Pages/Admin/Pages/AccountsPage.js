@@ -3,11 +3,11 @@ import {
     Routes,
     Route,
     useNavigate,
-    useParams
+//    useParams
 } from "react-router-dom";
-import './main.css';
-import { SendToServer, GetFormatter } from '../../Main.js'
-import { set, useForm } from "react-hook-form";
+import '../../../Style/Admin/main.css'
+import { SendToServer, GetFormatter } from '../../../GlobalFunctions.js'
+import { /*set,*/ useForm } from "react-hook-form";
 
 import PDF from './Account/BalanceSheet.js'
 
@@ -36,7 +36,7 @@ function Add(props) {
 
     const onSubmit = (data) => {
         console.log(errors)
-        if (Object.keys(errors).length == 0)
+        if (Object.keys(errors).length === 0)
             SendToServer("AddExpense", data, () => {
                 navigate("/admin/account/")
             })
@@ -72,7 +72,7 @@ function Add(props) {
 
 function Main(props) {
     let navigate = useNavigate();
-    const [disabled, setDisabled] = useState(false);
+    //const [disabled, setDisabled] = useState(false);
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const [selected, setSelected] = useState(10);
@@ -85,14 +85,14 @@ function Main(props) {
         useEffect(() => {
             if (loading) {
                 SendToServer("GetAccounts", { "Year": year }, (Data) => {
-                    if (Data.AccountChanges != null) {
+                    if (Data.Data !== null) {
                         setLoading(false);
-                        setData(Data.AccountChanges);
+                        setData(Data.Data);
                         setPage(0)
                     }
                 });
             }
-        }, [loading, data, page, selected, props]);
+        }, []);
     }
     Update();
     function AddExpense() {
@@ -108,7 +108,7 @@ function Main(props) {
     }
     function NewYear(e) {
         console.log(1999 + e.target.options.selectedIndex)
-        if (e.target.options.selectedIndex == 0)
+        if (e.target.options.selectedIndex === 0)
             setYear(0);
         else
             setYear(1999 + e.target.options.selectedIndex);
@@ -147,7 +147,7 @@ function Main(props) {
 
                                 <td>{new Date(a.When).toLocaleString("en-GB")}</td>
                                 <td>
-                                    {a.FromDatabase == "Expences" &&
+                                    {a.FromDatabase === "Expences" &&
                                         <button className='btn btn-danger' onClick={() => SendToServer("DeleteExpence", { "id": a.id, "Year": year }, resetPage)}><i class="fas fa-trash-alt"></i></button>}
                                 </td>
                             </tr>)}
@@ -155,15 +155,15 @@ function Main(props) {
                                 <td style={{ color: (Total > 0) ? "#2c2" : (Total < 0) ? "red" : "gray", fontWeight: "bold" }}>{GetFormatter().format(Total)}</td>
                                 <td colSpan={2}>Total
                                     <div style={{ textAlign: "center", position: "relative", top: "-10px" }}>
-                                        <button className={'btn' + (page != 0 ? " btn-primary" : " btn-dark")} style={{ width: "100px", marginRight: "10px" }} disabled={page == 0} onClick={() => setPage(page - 1)}>-</button>
-                                        <button className={'btn' + (page != parseInt(data.length / selected) ? " btn-primary" : " btn-dark")} disabled={page == parseInt(data.length / selected)} style={{ width: "100px", marginRight: "10px" }} onClick={() => setPage(page + 1)}>+</button>
+                                        <button className={'btn' + (page !== 0 ? " btn-primary" : " btn-dark")} style={{ width: "100px", marginRight: "10px" }} disabled={page === 0} onClick={() => setPage(page - 1)}>-</button>
+                                        <button className={'btn' + (page !== parseInt(data.length / selected) ? " btn-primary" : " btn-dark")} disabled={page === parseInt(data.length / selected)} style={{ width: "100px", marginRight: "10px" }} onClick={() => setPage(page + 1)}>+</button>
                                     </div>
                                 </td>
                                 <td>
 
                                     <select value={year} onChange={NewYear} className="form-select">
-                                        <option key={0} value={0} selected={year == 0}>All Years</option>
-                                        {Array.apply(null, Array(100)).map((_, i) => <option key={2000 + i} selected={year == 2000 + i} value={2000 + i}>{2000 + i}</option>)}
+                                        <option key={0} value={0} selected={year === 0}>All Years</option>
+                                        {Array.apply(null, Array(100)).map((_, i) => <option key={2000 + i} selected={year === 2000 + i} value={2000 + i}>{2000 + i}</option>)}
                                     </select>
 
                                     <select value={selected} onChange={NewLimit} className="form-select">

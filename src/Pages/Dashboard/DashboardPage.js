@@ -1,12 +1,15 @@
 import React from 'react'
 // eslint-disable-next-line
-import './main.css'
-import { SendToServer, LoadController, AddCallback, RemoveCallback, GetFormatter } from '../Main.js'
+import '../../Style/Dashboard/main.css'
+import { SendToServer, LoadController, AddCallback, RemoveCallback, GetFormatter } from '../../GlobalFunctions.js'
 import {
   useNavigate
 } from "react-router-dom";
 
-import MiniShippingCart,{ CartItem } from "../Components/Cart.js";
+import MiniShippingCart,{ CartItem } from "../../Components/Cart.js";
+import Time from "../../Components/Time.js"
+import NotificationIcon from "../../Components/NotificationIcon.js"
+import PromoItem from "../../Components/PromoItem.js"
 
 function LinkToAdmin() {
   let navigate = useNavigate();
@@ -41,7 +44,7 @@ class DashboardPage extends React.Component {
       }
       var data = this.state.input;
       var id = ""
-      console.log(key);
+
       if (character === "Backspace") {
         data = (data.length > 0) ? data.substring(0, data.length - 1) : "";
         this.setState({ input: data });
@@ -103,7 +106,7 @@ class DashboardPage extends React.Component {
     AddCallback("AddItem", (Data) => { this.AddItemToCartDisplay(Data); });
     AddCallback("updateDisplayPrices", (Data => {
       delete Data["Action"];
-      this.setState({ priceDisplay: Data })
+      this.setState({ priceDisplay: Data.Data })
     }));
   }
 
@@ -120,12 +123,13 @@ class DashboardPage extends React.Component {
     SendToServer("AddItemByID", ID);
   }
   AddItemToCartDisplay(Data) {
+    console.log(Data);
     var items = this.state.cartItems;
-    var ID = "Cart_" + Data.ID;
+    var ID = "Cart_" + Data.Data.ID;
     if (!(ID in items)) {
       delete items[ID]
     }
-    items[ID] = Data;
+    items[ID] = Data.Data;
     this.setState({ selectedID: ID, input: "", cartItems: items })
   }
 
@@ -140,8 +144,7 @@ class DashboardPage extends React.Component {
       delete items[ID]
     }
     //$(".selected").removeClass("selected")
-    var Price = "£" + Data.Price;
-    items[ID] = <button id={ID} key={ID} className="btn Item-Box btn-light" onClick={() => { this.AddCartItemByID(Data.ID) }}><div style={{ "display": "flex", "justifyContent": "center" }}><img src={Data.ImageData.URL} alt='promo Item' style={{ "height": Data.ImageData.Dimensions.Height, "width": Data.ImageData.Dimensions.Width, marginLeft: Data.ImageData.Dimensions.OffsetWidth, marginTop: Data.ImageData.Dimensions.OffsetHeight }} /><br /></div><span style={{ "height": "40px", "fontSize": "1.5em" }}> {Data.Name} </span><br /><span style={{ "fontWeight": "bold", "height": "40px", "fontSize": "2em" }}> {Price} </span></button>
+    items[ID] = <PromoItem id={ID} key={ID} AddCartItemByID={this.AddCartItemByID} Data={Data}/>
     this.setState({ promoItem: items });
 
     //this.currentTableRowSelected = $('#Cart_' + Data.ID)
@@ -185,16 +188,18 @@ class DashboardPage extends React.Component {
     }
 
 
-
     var InputBox = (this.state.input === "") ? "" : <tr id="Input" className="selected"><td colSpan="4" width="100%" style={{ "textAlign": "center", "fontWeight": "bold", "lineHeight": "2.5em" }}> {this.state.input} </td></tr>
 
     return <div style={{ "backgroundColor": "#212529" }}>
       <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{ "height": "45px" }}>
         <div className="container-fluid">
           <LinkToAdmin />
+          <Time />
           <div className="d-flex">
-            <button type="button" className="btn" data-bs-toggle="modal" data-bs-target="#SignoutModal"><i
-              className="fas fa-sign-out-alt"></i></button>
+            <NotificationIcon notification={["<div>","2"]} />
+            
+            <button type="button" className="btn" data-bs-toggle="modal"  data-bs-target="#SignoutModal"><i
+              className="fas fa-sign-out-alt" style={{fontSize:"25px"}}></i></button>
           </div>
 
         </div>
