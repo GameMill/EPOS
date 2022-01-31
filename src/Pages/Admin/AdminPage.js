@@ -12,6 +12,7 @@ import ProductsPage from './Pages/ProductsPage.js'
 import DashboardPage from './Pages/DashboardPage.js'
 import OrdersPage from './Pages/OrdersPage.js'
 import AccountsPage from './Pages/AccountsPage.js'
+import SettingsPage from './Pages/SettingsPage.js'
 
 
 class AdminPage extends React.Component {
@@ -63,20 +64,27 @@ class AdminPage extends React.Component {
               </li>
 
               <li>
-                <button className="nav-link px-0 align-middle" onClick={()=>SendToServer("ResetPage",null)}>
-                  <i className="fas fa-sync" style={{ "fontSize": "25px" }}></i> <span className="ms-1 d-none d-sm-inline">Reset</span> 
+                <button className="nav-link px-0 align-middle" onClick={() => SendToServer("ResetPage", null)}>
+                  <i className="fas fa-sync" style={{ "fontSize": "25px" }}></i> <span className="ms-1 d-none d-sm-inline">Reset</span>
                 </button>
               </li>
               <li>
-                <button className="nav-link px-0 align-middle" onClick={()=>SendToServer("exit",null)}>
-                  <i className="fas fa-door-open" style={{ "fontSize": "25px" }}></i> <span className="ms-1 d-none d-sm-inline">Exit</span> 
+                <NavLink className="nav-link align-middle px-0" to="/admin/settings/">
+                  <i className="bi-archive-fill" style={{ "fontSize": "25px" }}></i> <span className="ms-1 d-none d-sm-inline">Settings</span>
+                </NavLink>
+              </li>
+              <li>
+                <button className="nav-link px-0 align-middle" onClick={() => SendToServer("exit", null)}>
+                  <i className="fas fa-door-open" style={{ "fontSize": "25px" }}></i> <span className="ms-1 d-none d-sm-inline">Exit</span>
                 </button>
               </li>
               <li>
-                <button className="nav-link px-0 align-middle" onClick={()=>SendToServer("test",null)}>
-                  <i className="fas fa-door-open" style={{ "fontSize": "25px" }}></i> <span className="ms-1 d-none d-sm-inline">Exit</span> 
+                <button className="nav-link px-0 align-middle" onClick={() => SendToServer("test", null)}>
+                  <i className="fas fa-door-open" style={{ "fontSize": "25px" }}></i> <span className="ms-1 d-none d-sm-inline">Test</span>
                 </button>
               </li>
+
+
             </ul>
 
             {/*<div className="dropdown pb-4">
@@ -104,6 +112,7 @@ class AdminPage extends React.Component {
             <Route path="/products/*" element={<ProductsPage />} />
             <Route path="/orders/*" element={<OrdersPage />} />
             <Route path="/account/*" element={<AccountsPage />} />
+            <Route path="/settings/*" element={<SettingsPage />} />
             <Route path="*" element={<A404 />} />
           </Routes>
         </div>
