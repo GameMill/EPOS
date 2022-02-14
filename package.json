@@ -1,6 +1,6 @@
 {
   "name": "epos_system",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "private": true,
   "homepage": "http://gamemill.github.io/EPOS/",
   "dependencies": {
@@ -12,6 +12,7 @@
     "bootstrap": "^5.1.3",
     "browserify-zlib": "^0.2.0",
     "buffer": "^6.0.3",
+    "dangerously-set-html-content": "^1.0.9",
     "process": "^0.11.10",
     "react": "^17.0.2",
     "react-app": "^1.1.2",
