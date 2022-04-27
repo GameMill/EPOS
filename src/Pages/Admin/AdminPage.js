@@ -14,14 +14,15 @@ import OrdersPage from './Pages/OrdersPage.js'
 import AccountsPage from './Pages/AccountsPage.js'
 import SettingsPage from './Pages/SettingsPage.js'
 
+import InnerHTML from 'dangerously-set-html-content'
 
 class AdminPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      ExtraURLs:[]
     };
     LoadController("Admin")
-
   }
 
   render() {
@@ -115,10 +116,15 @@ class AdminPage extends React.Component {
             <Route path="/settings/*" element={<SettingsPage />} />
             <Route path="*" element={<A404 />} />
           </Routes>
+          <CustomPage html='<h1>Hello world</h1><script>console.log(this);alert("Hello! I am an alert box!!");</script>' />
         </div>
       </div>
     </div>
   }
+}
+
+function CustomPage(props) {
+  return <InnerHTML html={props.html} />;
 }
 
 function About() {

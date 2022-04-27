@@ -5,3 +5,31 @@
 .hg-button {
     height: auto !important;
 }
+
+.test2{
+    overflow-y: scroll;
+}
+.test3{
+    overflow-x: visible;
+}
+
+.ReceiptItem{
+    width: calc(100% - 20px);
+    background-color: #14213d;
+    color: #e5e5e5;
+    box-shadow: 1px 1px 1px #000;
+    border: 1px solid #14213d;
+    border-radius: 10px;
+    vertical-align: middle;
+    padding: 0 20px;
+    margin: 10px
+}
+.ReceiptItem:hover {
+    background-color: #e5e5e5;
+    color: #14213d;
+}
+.ReceiptItem:active {
+    background-color: #fca311;
+    box-shadow: -1px -1px 1px #000;
+
+}

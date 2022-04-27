@@ -76,6 +76,9 @@ export function GetFormatter()
 
 var Hooks = {};
 var OneUseHooks = {};
-
-
+console.log("See Only Once",Hooks)
+AddCallback("RemoveCallback", (data) => {
+    console.log("Server Did not recognise: ", data.Data);
+    RemoveCallback(data.Data);
+})
 document.addEventListener('contextmenu', event => event.preventDefault());

@@ -7,7 +7,7 @@ export default function NotificationIcon(props)
       return <span>
 
 <button type="button" className="btn" data-bs-toggle="modal" data-bs-target="#NotifcationsList">
-  <i class="far fa-bell" style={{fontSize:"25px"}}>
+  <i className="far fa-bell" style={{fontSize:"25px"}}>
     {props.notification && 
         <span style={{position: 'relative', borderRadius:"100%",backgroundColor:"red",color:"white",display:"inline-block", width:"15px",height:"15px",fontSize:"15px",left:-10}}>{props.notification.length}</span>
     }

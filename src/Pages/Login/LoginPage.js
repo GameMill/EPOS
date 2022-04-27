@@ -10,7 +10,7 @@ import { SendToServer, LoadController } from '../../GlobalFunctions.js'
 import Keyboard from 'react-simple-keyboard';
 
 import '../../../node_modules/react-simple-keyboard/build/css/index.css';
-import packageJson  from '../../../package.json'
+import packageJson from '../../../package.json'
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -74,12 +74,14 @@ function RegistrationForm() {
     const [DOB_dd, setDOB_dd] = useState([""]);
     const [DOB_mm, setDOB_mm] = useState([""]);
     const [DOB_yyyy, setDOB_yyyy] = useState([""]);
+    const [iP_Address, setIP_Address] = useState("127.0.0.1");
 
 
     const [selectedTextBox, SetSelectedTextBox] = useState("Email");
     const [layoutName, setLayoutName] = useState("default");
     const keyboard = useRef();
     const [shiftLastUsed, setShiftLastUsed] = useState(false);
+    const [isMasterServer, setMasterServer] = useState(true);
 
     function Click() {
         if (email !== "" && password !== "" && password === password2 && companyName !== "" && firstLine !== "" && license !== "" && tAC === true)
@@ -96,6 +98,8 @@ function RegistrationForm() {
             VAT_Number: vAT,
             License: license,
             Phone: Phone,
+            MasterServer: isMasterServer,
+            IP_Address:iP_Address,
         }
 
         SendToServer("Registration", data, (data) => {
@@ -119,6 +123,17 @@ function RegistrationForm() {
 
     function CurrentPageComplate() {
         if (PageNumber === 0) {
+            if (isMasterServer)
+            {
+                setPageNumber(5);
+
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        else if (PageNumber === 1) {
             if (isValidEmailAddress(email) && password !== "" && password === password2)
                 return true;
             else
@@ -220,39 +235,60 @@ function RegistrationForm() {
 
             <h1>Register:</h1>
 
-            <div className="tab" style={{ "display": (PageNumber === 0) ? "block" : "none" }}>Login Details:
+
+            <div className="tab" style={{ "display": (PageNumber === 0) ? "block" : "none" }}>Is this epos system a standalone unit?
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                    <label class="form-check-label" checked={isMasterServer} onChange={(event) => { setMasterServer(event.target.value); }} for="flexCheckDefault" >
+                        Is master server
+                    </label>
+                </div>
+            </div>
+            <div className="tab" style={{ "display": (PageNumber === 5) ? "block" : "none" }}>Please provide the details of the Master Station?
+                <p><input placeholder="IP Address" value={email} onFocus={(event) => { SetSelectedTextBox("IP") }} onChange={(event) => { setEmail(event.target.value); }} /></p>
+
+            </div>
+            <div className="tab" style={{ "display": (PageNumber === 1) ? "block" : "none" }}>Your master account:
                 <p><input placeholder="E-mail..." value={email} onFocus={(event) => { SetSelectedTextBox("Email") }} onChange={(event) => { setEmail(event.target.value); }} /></p>
                 <p><input type="password" value={password} onFocus={(event) => { SetSelectedTextBox("Password") }} placeholder="Password..." onChange={(event) => { setPassword(event.target.value); }} /></p>
                 <p><input type="password" value={password2} onFocus={(event) => { SetSelectedTextBox("Password2") }} placeholder="Confirm Password..." onChange={(event) => { setPassword2(event.target.value); }} /></p>
                 <p><input placeholder="Phone..." value={Phone} onFocus={(event) => { SetSelectedTextBox("Phone") }} onChange={(event) => { setPhone(event.target.value); }} /></p>
-
             </div>
 
-            <div className="tab" style={{ "display": (PageNumber === 1) ? "block" : "none" }}>Address:
+            <div className="tab" style={{ "display": (PageNumber === 2) ? "block" : "none" }}>Address:
                 <p><input placeholder="Company Name..." value={companyName} onFocus={(event) => { SetSelectedTextBox("CompanyName") }} onChange={(event) => { setCompanyName(event.target.value); }} /></p>
                 <p><input placeholder="First Line..." value={firstLine} onFocus={(event) => { SetSelectedTextBox("FirstLine") }} onChange={(event) => { setFirstLine(event.target.value); }} /></p>
                 <p><input placeholder="Second Line..." value={secondLine} onFocus={(event) => { SetSelectedTextBox("SecondLine") }} onChange={(event) => { setSecondLine(event.target.value); }} /></p>
-                <p><input placeholder="County..." value={county} onFocus={(event) => { SetSelectedTextBox("County") }}  onChange={(event) => { setCounty(event.target.value); }} /></p>
-                <p><input placeholder="Country..." value={country} onFocus={(event) => { SetSelectedTextBox("Country") }}  onChange={(event) => { setCountry(event.target.value); }} /></p>
+                <p><input placeholder="County..." value={county} onFocus={(event) => { SetSelectedTextBox("County") }} onChange={(event) => { setCounty(event.target.value); }} /></p>
+                <p><input placeholder="Country..." value={country} onFocus={(event) => { SetSelectedTextBox("Country") }} onChange={(event) => { setCountry(event.target.value); }} /></p>
             </div>
 
-            <div className="tab" style={{ "display": (PageNumber === 2) ? "block" : "none" }}>Company Register Date:
+            <div className="tab" style={{ "display": (PageNumber === 3) ? "block" : "none" }}>Company Register Date:
                 <p><input placeholder="dd" value={DOB_dd} onFocus={(event) => { SetSelectedTextBox("DOB_dd") }} onChange={(event) => { setDOB_dd(event.target.value); }} /></p>
                 <p><input placeholder="mm" value={DOB_mm} onFocus={(event) => { SetSelectedTextBox("DOB_mm") }} onChange={(event) => { setDOB_mm(event.target.value); }} /></p>
                 <p><input placeholder="yyyy" value={DOB_yyyy} onFocus={(event) => { SetSelectedTextBox("DOB_yyyy") }} onChange={(event) => { setDOB_yyyy(event.target.value); }} /></p>
             </div>
 
-            <div className="tab" style={{ "display": (PageNumber === 3) ? "block" : "none" }}>Legal Details:
+            <div className="tab" style={{ "display": (PageNumber === 4) ? "block" : "none" }}>Legal Details:
                 <p><input placeholder="Vat Number..." value={vAT} onFocus={(event) => { SetSelectedTextBox("VAT") }} onChange={(event) => { setVAT(event.target.value); }} /></p>
-                <p><input placeholder="License..." value={license} onFocus={(event) => { SetSelectedTextBox("License") }}onChange={(event) => { setLicense(event.target.value); }} /></p>
-                <p><input type="checkbox" checked={tAC} onChange={(event) => { setTAC(event.target.value); }} /> Terms and Conditions</p>
+                <p><input placeholder="License..." value={license} onFocus={(event) => { SetSelectedTextBox("License") }} onChange={(event) => { setLicense(event.target.value); }} /></p>
+
+                <p>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" checked={tAC} onChange={(event) => { setTAC(event.target.value); }} />
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Terms and Conditions
+                        </label>
+                    </div>
+
+                </p>
             </div>
 
             <div style={{ "overflow": "auto" }}>
                 <div style={{ "float": "right" }}>
-                    <button type="button" id="prevBtn" style={{ "display": (PageNumber === 0) ? "none" : "inline" }} onClick={() => setPageNumber(PageNumber - 1)}>Previous</button>
-                    <button type="button" id="nextBtn" style={{ "display": (PageNumber === 3) ? "none" : "inline" }} onClick={() => { if (CurrentPageComplate()) { setPageNumber(PageNumber + 1) } }}>Next</button>
-                    <button type="button" id="nextBtn" style={{ "display": (PageNumber === 3) ? "inline" : "none" }} onClick={() => { if (CurrentPageComplate()) { Click() } }}>Submit</button>
+                    <button type="button" className='btn btn-primary' id="prevBtn" style={{ "display": (PageNumber === 0) ? "none" : "inline" }} onClick={() => setPageNumber(PageNumber - 1)}>Previous</button>
+                    <button type="button" className='btn btn-primary' id="nextBtn" style={{ "display": (PageNumber === 4) ? "none" : "inline" }} onClick={() => { if (CurrentPageComplate()) { setPageNumber(PageNumber + 1) } }}>Next</button>
+                    <button type="button" className='btn btn-primary' id="nextBtn" style={{ "display": (PageNumber === 4) ? "inline" : "none" }} onClick={() => { if (CurrentPageComplate()) { Click() } }}>Submit</button>
                 </div>
             </div>
 
@@ -340,7 +376,7 @@ function LoginForm() {
     const keyboard = useRef();
     const [shiftLastUsed, setShiftLastUsed] = useState(false);
 
-    
+
 
     function isValidEmailAddress(address) {
         return !!address.match(/.+@.+/);
@@ -510,7 +546,7 @@ function LoginForm() {
             <div className="text-white mb-3 mb-md-0">
                 Copyright © <CopyrightYear />. All rights reserved. Version: {packageJson.version}
             </div>
-            
+
 
 
 
